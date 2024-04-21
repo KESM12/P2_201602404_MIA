@@ -1,0 +1,131 @@
+#ENTRADA PRIMER PARTE MIA
+#1S 2024
+#CAMBIAR /home/taro/Pruebas -> POR SU USUARIO EJ ->  /home/SU_USER 
+#CAMBIAR LOS IDS
+
+#DISCO X
+mkdisk -param=x -size=30 -path=/home/taro/Pruebas/archivos/Disco.dsk # ERR PARAMETROS
+
+#CREACION DE DISCOS---------------------------------------------------
+Mkdisk -size=50 -unit=M -fit=FF                   # 50M A
+Mkdisk -unit=k -size=51200 -fit=BF                # 50M B
+mkDisk -size=13                                   # 13M C
+mkdisk -size=51200 -unit=K                        # 50M D
+mkDisk -size=20 -unit=M -fit=WF                   # 20M ENCONTRADA
+Mkdisk -size=50 -unit=M -fit=FF                   # 50M F X
+Mkdisk -size=50 -unit=M -fit=FF                   # 50M G X
+mkdisk -size=51200 -unit=K                        # 50M H X
+mkdisk -size=51200 -unit=K                        # 50M I X
+
+#ELIMINACION DE DISCOS---------------------------------------------------
+rmdisk -driveletter=Z #ERR RUTA NO ENCONTRADA
+rmdisk -driveletter=F
+rmdisk -driveletter=G
+rmdisk -driveletter=H
+rmdisk -driveletter=I
+
+#CREACION DE PARTICIONES---------------------------------------------------
+#DISCO 1
+fdisk -type=P -unit=b -name=Part0 -size=10485760 -driveletter=Z -fit=BF # ERR RUTA NO ENCONTRADA
+fdisk -type=P -unit=b -name=Part1 -size=10485760 -driveletter=A -fit=BF # 10M
+fdisk -type=P -unit=k -name=Part2 -size=10240 -driveletter=A -fit=BF    # 10M
+fdisk -type=P -unit=M -name=Part3 -size=10 -driveletter=A -fit=BF       # 10M
+fdisk -type=P -unit=b -name=Part4 -size=10485760 -driveletter=A -fit=BF # 10M
+fdisk -type=P -unit=b -name=Part5 -size=10485760 -driveletter=A -fit=BF #ERR PARTICION 5
+# LIBRE DISCO 1: 50-4*10 = 10 -> 20%
+
+#DISCO 2
+fdisk -type=L -unit=k -name=Part6 -size=10240 -driveletter=B -fit=BF #ERRROR no hay una extendida
+fdisk -type=L -unit=k -name=Part7 -size=10240 -driveletter=B -fit=BF #ERRROR no hay una extendida
+fDisk -type=P -unit=K -name=Part8 -size=10240 -driveletter=B -fit=BF    # 10M
+fDisk -type=P -unit=m -name=Part9 -size=10 -driveletter=B -fit=FF       # 10M
+fDisk -type=P -unit=K -name=Part10 -size=5120 -driveletter=B -fit=WF    # 5M
+fdisk -type=E -unit=m -name=Part11 -size=20 -driveletter=B            # 20M
+fdisk -type=L -unit=k -name=Part12 -size=1536 -driveletter=B          # 1.5M
+fdisk -type=L -unit=k -name=Part13 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part14 -size=1536 -driveletter=B -fit=FF
+fdisk -type=L -unit=k -name=Part15 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part16 -size=1536 -driveletter=B -fit=WF
+fdisk -type=L -unit=k -name=Part17 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part18 -size=1536 -driveletter=B -fit=FF
+fdisk -type=L -unit=k -name=Part19 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part20 -size=1536 -driveletter=B -fit=FF
+fdisk -type=L -unit=k -name=Part21 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part22 -size=1536 -driveletter=B -fit=wF
+fdisk -type=L -unit=k -name=Part23 -size=1536 -driveletter=B -fit=BF
+fdisk -type=L -unit=k -name=Part24 -size=1536 -driveletter=B -fit=FF
+# LIBRE DISCO 2: 50-45 = 5 -> 10%
+# LIBRE EXTENDIDA 2: 20-13*1.5 = 0.5 -> 2.5% (por los EBR deberia ser menos)
+
+#DISCO 3
+fdisk -type=P -unit=m -name=Part25 -size=20 -driveletter=C    # 20M #ERR FALTA ESPACIO
+fdisk -type=P -unit=m -name=Part26 -size=4 -driveletter=C     #4M
+fdisk -type=P -unit=m -name=Part27 -size=4 -driveletter=C     #4M
+fdisk -type=P -unit=m -name=Part28 -size=1 -driveletter=C     #1M
+#LIBRE DISCO 3: 13-9= 4 -> 30.77%
+
+#ELIMINAR Y AGREGAR ESPACIO DISCO 3
+fdisk -add=-1000 -unit=m -driveletter=A -name=Part2 # ERR SIZE NEGATIVO
+fdisk -add=1000 -unit=m -driveletter=A -name=Part1 # ERR PARTICION NO TIENE ESPACIO
+fdisk -add=-2 -unit=m -driveletter=C -name=Part26 # 4-2= 2M
+fdisk -delete=full -name=Part27 -driveletter=C # 0
+fdisk -add=4 -unit=m -driveletter=C -name=Part28 # 4+1= 5M
+#LIBRE DISCO 3: 13-7 = 3 -> 53.84%
+
+#DISCO 5
+fdisk -type=E -unit=k -name=Part29 -size=5120 -driveletter=E -fit=BF # 5MB
+fdisk -type=L -unit=k -name=Part30 -size=1024 -driveletter=E -fit=BF # 1MB
+fdisk -type=P -unit=k -name=Part31 -size=5120 -driveletter=E -fit=BF # 5MB
+fdisk -type=L -unit=k -name=Part32 -size=1024 -driveletter=E -fit=BF # 1MB
+fdisk -type=L -unit=k -name=Part33 -size=1024 -driveletter=E -fit=BF # 1MB
+fdisk -type=L -unit=k -name=Part34 -size=1024 -driveletter=E -fit=BF # 1MB
+# LIBRE DISCO 5: 20-10 = 5 -> 50%
+# LIBRE EXTENDIDA 2: 5-4 = 1 -> 20% (por los EBR deberia ser menos)
+
+#MONTAR PARTICIONES---------------------------------------------------
+#DISCO X
+mount -driveletter=A -name=Part1 #ERR PARTICION NO EXISTE
+#DISCO 1
+mount -driveletter=A -name=Part1 #191a -> id1 -> cambiar el 191a por el ID que a ustedes les genera
+mount -driveletter=A -name=Part2 #a102 -> id2 -> cambiar el a102 por el ID que a ustedes les genera
+mount -driveletter=A -name=Part1 #ERR PARTICION YA MONTADA
+#DISCO 2
+mount -driveletter=B -name=Part11 #ERR MONTAR EXTENDIDA
+mount -driveletter=B -name=Part8 #192a -> id3 -> cambiar el 192a por el ID que a ustedes les genera
+mount -driveletter=B -name=Part9 #192b -> id4 -> cambiar el 192b por el ID que a ustedes les genera
+#DISCO 3
+mount -driveletter=C -name=Part26 #193a -> id5 -> cambiar el 193a por el ID que a ustedes les genera
+#DISCO 5
+mount -driveletter=E -name=Part31 #194a -> id6 -> cambiar el 194a por el ID que a ustedes les genera
+
+#DESMONTAR PARTICIONES---------------------------------------------------
+unmount -id=IDx #ERR NO EXISTE ID
+#DISCO 1
+unmount -id=A104 #-> id1
+unmount -id=A104 #ERR PARTICION YA DESMONTADA -> id1
+#DISCO 2
+unmount -id=B204 #-> id4
+
+#REPORTES---------------------------------------------------
+#DISCO 1
+rep -id=A104 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte1.png -name=mbr #ERR ID NO ENCONTRADO -> id1
+rep -id=A104 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte2.png -name=disk #-> id2
+rep -id=A104 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte3.png -name=mbr #-> id2
+
+#DISCO 2
+rep -id=A204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte4.png -name=mbr #ERR ID NO ENCONTRADO -> id4
+rep -id=A204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte5.png -name=disk #-> id3
+rep -id=A204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte6.png -name=mbr #-> id3
+
+#DISCO 3
+rep -id=IDx -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte7.png -name=mbr #ERR ID NO ENCONTRADO
+rep -id=B304 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte8.png -name=disk #-> id5
+rep -id=B304 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte9.png -name=mbr #-> id5
+
+#DISCO 5
+rep -id=IDx -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte10.png -name=mbr #ERR ID NO ENCONTRADO
+rep -id=C204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte11.png -name=disk #-> id6
+rep -id=C204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte12.png -name=mbr #-> id6
+
+#execute -path="../Backend/ArchivosCalificacion/basico.mia"
+#execute -path="/home/taro/Escritorio/P2_201602404_MIA/Backend/ArchivosCalificacion/basico1.mia"

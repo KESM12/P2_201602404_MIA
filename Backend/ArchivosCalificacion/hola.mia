@@ -1,0 +1,5 @@
+Mkdisk -size=50 -unit=M -fit=FF 
+
+#hola 
+
+#execute -path="../Backend/ArchivosCalificacion/hola.mia"
