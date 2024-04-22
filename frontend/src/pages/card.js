@@ -38,22 +38,16 @@ function Card() {
                 comandos: commands
             };
     
-            console.log('Datos enviados al backend:', requestBody); // Agregar console.log para validar los datos
-    
+            console.log('Datos enviados al backend:', requestBody); 
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestBody),
+                body: requestBody,
             });
     
-            if (response.ok) {
-                const data = await response.json();
-                // Actualizar resultados si es necesario
-            } else {
-                console.error('Error en la solicitud:', response.statusText);
-            }
+            
         } catch (error) {
             console.error('Error al enviar los comandos:', error);
         }
