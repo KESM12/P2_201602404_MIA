@@ -5,6 +5,7 @@ import (
 	"P1/comandos/comandUser"
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -13,17 +14,31 @@ type Analizador struct {
 }
 
 func (a *Analizador) Execute(input string) {
-	ComandosyParametros := a.Split_input(input)
-	var comandos string
-	var parametros []string
-	for i, v := range ComandosyParametros {
-		if i == 0 {
-			comandos = v
-		} else {
-			parametros = append(parametros, v)
-		}
+	file, err := os.Open(input)
+	if err != nil {
+		log.Fatalf("Error al abrir el archivo: %s", err)
 	}
-	a.MatchParams(comandos, parametros)
+	fileScanner := bufio.NewScanner(file)
+	for fileScanner.Scan() {
+		texto := fileScanner.Text()
+		texto = strings.TrimSpace(texto)
+		ComandosyParametros := a.Split_input(texto)
+		var comandos string
+		var parametros []string
+		for i, v := range ComandosyParametros {
+			if i == 0 {
+				comandos = v
+			} else {
+				parametros = append(parametros, v)
+			}
+		}
+		a.MatchParams(comandos, parametros)
+	}
+	if err := fileScanner.Err(); err != nil {
+		log.Fatalf("Error al leer el archivo: %s", err)
+	}
+	file.Close()
+
 }
 
 func (a *Analizador) MatchParams(command string, params []string) {
