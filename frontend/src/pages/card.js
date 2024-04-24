@@ -7,7 +7,7 @@ function Card() {
     const [isPaused, setIsPaused] = useState(false);
     const [commands_list, setCommands_list] = useState([]);
     const textAreaRef = useRef(null);
-    const apiUrl ='http://localhost:4000'
+    const apiUrl ='http://127.0.0.1:4000/'
     //const apiUrl ='http://18.218.51.127'
 
   
@@ -44,15 +44,16 @@ function Card() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: requestBody,
+                body: JSON.stringify(requestBody)
             });
-    
-            
+            const data = await response.json();
+            console.log('Datos enviados al backend:', requestBody);
+            // Actualizar el estado de results con los resultados recibidos del backend
+            setResults(data.mensaje);
         } catch (error) {
             console.error('Error al enviar los comandos:', error);
         }
     };
-    
     
     const handleSubmit = () => {
         // Para enfocar el textarea
@@ -67,50 +68,6 @@ function Card() {
         sendCommands(commandLines);
     };
     
-
-    // const sendCommands = async (commands) => {
-    //     for (let i = 0; i < commands.length; i++) {
-    //         const command = commands[i].trim();
-        
-    //         if (command) { // Evita enviar líneas en blanco
-    //             setCommands_list(commands.slice(i+1, commands.length));
-    //             if(command == 'pause'){
-    //                 setIsPaused(true);
-    //                 setResults(prevResults => prevResults + `[Pause] => Presiona Enter para continuar\n`);
-    //                 break;
-    //             }
-    //             try {
-                    
-    //                 const response = await fetch(apiUrl +'/', { // execute
-                        
-    //                     method: 'POST',
-    //                     headers: {
-    //                         'Content-Type': 'application/json',
-    //                     },
-    //                     body: JSON.stringify({ command }),
-    //                 });
-            
-    //                 const data = await response.json();
-    //                 setResults(prevResults => prevResults + `${data.mensaje}\n`);
-    //             } catch (error) {
-    //                 console.error(`Error en la solicitud ${i + 1}: ${error}`);
-    //             }
-    //         }
-    //     }
-    // };
-
-    // const handleSubmit = () => {
-    //     //Para enfocar el textarea
-    //     textAreaRef.current.focus();
-    //     //Para limpiar el textarea
-    //     setResults('');
-    //     //Para dividir los comandos por salto de línea
-    //     const commandLines = commands.split('\n');
-    //     //Actualizamos la lista de comandos y enviamos los comandos
-    //     setCommands_list(commandLines);
-    //     sendCommands(commandLines);
-    // };
-
 
   return (
     <div className="card mt-4">

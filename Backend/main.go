@@ -4,11 +4,11 @@ import (
 	"P1/analizador"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strings"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -19,23 +19,19 @@ type DatosEntrada struct {
 }
 
 func main() {
-
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicial).Methods("GET")
 	router.HandleFunc("/", analizadorweb).Methods("POST")
 
-	handler := allowCORS(router)
-	fmt.Println("Server on port :4000")
-	log.Fatal(http.ListenAndServe(":4000", handler))
-}
+	// Agregar el middleware CORS
+	corsHandler := handlers.CORS(
+		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"Content-Type"}),
+	)(http.HandlerFunc(router.ServeHTTP))
 
-func allowCORS(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		handler.ServeHTTP(w, r)
-	})
+	fmt.Println("Server on port :4000")
+	http.ListenAndServe(":4000", corsHandler)
 }
 
 func inicial(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +55,24 @@ func analizadorweb(w http.ResponseWriter, r *http.Request) {
 
 	// Ejecutar el archivo de script
 	analizador.Execute("./prueba.script")
-	fmt.Fprintf(w, "Script ejecutado exitosamente")
+	// Crear un mensaje de respuesta
+	mensaje := struct {
+		Mensaje string `json:"mensaje"`
+	}{
+		Mensaje: "Script ejecutado exitosamente",
+	}
+	// Convertir el mensaje a JSON
+	respuesta, err := json.Marshal(mensaje)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Establecer el encabezado de contenido JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Escribir la respuesta JSON en la respuesta HTTP
+	fmt.Fprintf(w, string(respuesta))
 }
 
 func guardarDatos(archivo string, datos DatosEntrada) error {
