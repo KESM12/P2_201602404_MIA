@@ -52,12 +52,15 @@ func (a *Analizador) MatchParams(command string, params []string) {
 			}
 		}
 	} else if command == "pause" {
-		var option string
-		fmt.Println("presione 'ENTER' para continuar: ")
-		scanner := bufio.NewScanner(os.Stdin)
-		scanner.Scan()
-		option = scanner.Text()
-		fmt.Println(option)
+		contenido := command
+		contenido += "\n"
+		fmt.Println(contenido)
+		//var option string
+		// fmt.Println("presione 'ENTER' para continuar: ")
+		// scanner := bufio.NewScanner(os.Stdin)
+		// scanner.Scan()
+		// option = scanner.Text()
+		// fmt.Println(option)
 	} else if command == "mkdisk" {
 		m := comandos.Mkdisk{}
 		m.Execute(params)
@@ -105,7 +108,7 @@ func (a *Analizador) MatchParams(command string, params []string) {
 		r.Execute(params)
 	} else if strings.Contains(command, "#") {
 		contenido := command
-		contenido += "\n\n"
+		contenido += "\n"
 		fmt.Println(contenido)
 	}
 
