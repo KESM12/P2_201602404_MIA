@@ -1,7 +1,13 @@
 FROM golang:alpine
+
 WORKDIR /Go
+
 COPY . .
-RUN go mod download
+
+RUN go mod init P1
+RUN go get -u github.com/gorilla/mux
+RUN go get -u github.com/gorilla/handlers
+RUN go get -u github.com/rs/cors
 
 EXPOSE 4000
 CMD ["go","run","main.go"]

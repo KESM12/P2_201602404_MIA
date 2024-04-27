@@ -1,18 +1,17 @@
 package main
 
 import (
-	"P1/analizador"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
 
+	"P1/analizador"
+
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
-
-//var logued = false
 
 type DatosEntrada struct {
 	Comandos []string `json:"comandos"`
@@ -25,7 +24,7 @@ func main() {
 
 	// Agregar el middleware CORS
 	corsHandler := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"http://s3p2mia201602404.s3-website-us-east-1.amazonaws.com", "http://54.159.40.45:4000"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 	)(http.HandlerFunc(router.ServeHTTP))
@@ -70,6 +69,9 @@ func analizadorweb(w http.ResponseWriter, r *http.Request) {
 
 	// Establecer el encabezado de contenido JSON
 	w.Header().Set("Content-Type", "application/json")
+
+	// Agregar el encabezado Access-Control-Allow-Headers
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	// Escribir la respuesta JSON en la respuesta HTTP
 	fmt.Fprintf(w, string(respuesta))

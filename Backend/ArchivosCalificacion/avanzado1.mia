@@ -24,8 +24,8 @@ mkfs -type=full -id=A204 -fs=3fs
 
 #EXT2------------------------------------------------
 #------------------------REPORTES 1----------------
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte1_sb.jpg" -name=sb
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte1_tree.jpg" -name=tree
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte1_sb.jpg" -name=sb
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte1_tree.jpg" -name=tree
 
 pause
 #mkdisk -param=x
@@ -103,7 +103,7 @@ mkdir -r -path=/home/archivos/user/docs/usac
 mkdir -r -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5 
 
 #------------------------REPORTE 2----------------
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte2_tree.jpg" -name=tree
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte2_tree.jpg" -name=tree
 
 pause
 mkdisk -param=x 
@@ -148,7 +148,7 @@ mkdisk -param=x #ERR
 
 
 #------------------------REPORTE 3----------------
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte3_tree.jpg" -name=tree
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte3_tree.jpg" -name=tree
 
 pause
 mkdisk -param=x 
@@ -157,9 +157,9 @@ mkdisk -param=x
 
 #------------------------REPORTES 5----------------
 
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte5_tree.jpg" -name=tree
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte5_sb.jpg" -name=sb
-rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/P2_201602404_MIA/Reportesreporte5_file.jpg" -ruta=/home/archivos/user/docs/Tarea2.txt -name=file
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte5_tree.jpg" -name=tree
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte5_sb.jpg" -name=sb
+rep -id=A104 -path="/home/taro/Escritorio/P2_201602404_MIA/Reportes/reporte5_file.jpg" -ruta=/home/archivos/user/docs/Tarea2.txt -name=file
 
 #execute -path="./ArchivosCalificacion/avanzado1.mia"
 #/home/taro/Escritorio/P2_201602404_MIA/Reportes

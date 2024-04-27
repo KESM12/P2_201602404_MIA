@@ -7,8 +7,7 @@ function Card() {
     const [isPaused, setIsPaused] = useState(false);
     const [commands_list, setCommands_list] = useState([]);
     const textAreaRef = useRef(null);
-    const apiUrl ='http://127.0.0.1:4000/'
-    //const apiUrl ='http://18.218.51.127'
+    const apiUrl ='http://54.159.40.45:4000/'
 
   
     const handleFileChange = (e) => {
@@ -47,8 +46,6 @@ function Card() {
                 body: JSON.stringify(requestBody)
             });
             const data = await response.json();
-            console.log('Datos enviados al backend:', requestBody);
-            // Actualizar el estado de results con los resultados recibidos del backend
             setResults(data.mensaje);
         } catch (error) {
             console.error('Error al enviar los comandos:', error);

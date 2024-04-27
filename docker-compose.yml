@@ -1,14 +1,11 @@
-version: '3'
+version: '2.20.3'
 
 services:
   backend:
+    image: backend:latest
     container_name: backend
-    restart: always
-    build: ./Backend
     ports:
       - "4000:4000"
-    networks:
-      - default1
+    restart: always
 
-networks:
-  default1:
+    

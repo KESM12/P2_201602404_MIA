@@ -52,12 +52,12 @@ func (a *Analizador) MatchParams(command string, params []string) {
 			}
 		}
 	} else if command == "pause" {
-		var option string
-		fmt.Println("presione 'ENTER' para continuar: ")
-		scanner := bufio.NewScanner(os.Stdin)
-		scanner.Scan()
-		option = scanner.Text()
-		fmt.Println(option)
+		//var option string
+		fmt.Println("presione 'ENTER' para continuar: Se hizo una pausa. ")
+		// scanner := bufio.NewScanner(os.Stdin)
+		// scanner.Scan()
+		// option = scanner.Text()
+		// fmt.Println(option)
 	} else if command == "mkdisk" {
 		m := comandos.Mkdisk{}
 		m.Execute(params)
