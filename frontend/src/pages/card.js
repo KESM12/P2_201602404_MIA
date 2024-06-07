@@ -7,7 +7,9 @@ function Card() {
     const [isPaused, setIsPaused] = useState(false);
     const [commands_list, setCommands_list] = useState([]);
     const textAreaRef = useRef(null);
-    const apiUrl ='http://54.159.40.45:4000/'
+    //const apiUrl ='http://54.159.40.45:4000/'
+    const apiUrl ='http://localhost:4000/'
+
 
   
     const handleFileChange = (e) => {

@@ -148,6 +148,7 @@ func (r *Rep) ReporteMBR(path, id string) {
 	contenido += "\t\t</TABLE>\n"
 	contenido += "\t>]\n"
 	contenido += "}\n"
+	fmt.Println(contenido)
 	directory := path + ".dot"
 	// hay que crear los directorios el archivo nuevo
 	comandos.MkDirectory(directory)

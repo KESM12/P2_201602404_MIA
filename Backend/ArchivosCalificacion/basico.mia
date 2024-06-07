@@ -129,3 +129,23 @@ rep -id=C204 -Path=/home/taro/go/src/MIA1_P1_201602404/MIA/Reportes/reporte12.pn
 
 #execute -path="../Backend/ArchivosCalificacion/basico.mia"
 #execute -path="/home/taro/Escritorio/P2_201602404_MIA/Backend/ArchivosCalificacion/basico1.mia"
+
+rmdisk -driveletter=A
+S
+rmdisk -driveletter=B
+S
+rmdisk -driveletter=C
+S
+rmdisk -driveletter=D
+S
+rmdisk -driveletter=E
+S
+rmdisk -driveletter=F
+S
+rmdisk -driveletter=G
+S
+rmdisk -driveletter=H
+S
+rmdisk -driveletter=I
+S
+taro pull xdsdfasdf
